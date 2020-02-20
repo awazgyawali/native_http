@@ -1,3 +1,7 @@
+## 1.0.0+1
+
+- Added example
+
 ## 1.0.0
 
 - Works on both android and iOS
