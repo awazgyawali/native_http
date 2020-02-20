@@ -1,3 +1,7 @@
+## 1.0.0
+
+- Works on both android and iOS
+
 ## 0.0.3
 
 - Introduced request method
