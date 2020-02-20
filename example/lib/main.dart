@@ -19,14 +19,18 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    native_http.NativeResponse response = await native_http.post(
+    native_http.NativeResponse respGet = await native_http.get(
+        "http://newweb.nepalstock.com.np:8500/api/nots/nepse-data/market-open");
+    print(respGet.body);
+    native_http.NativeResponse respPost = await native_http.post(
       "http://newweb.nepalstock.com.np:8500/api/authenticate/login",
       body: {
-        "username": "dsas",
-        "password": "dsas",
+        "username":
+            "g7tPQQwfa5fDdP8BcMDSbQ==.g7tPQQwfa5fDdP8BcMDSbQ==.UCmnIJrqxa4rceoAKJUKZA==",
+        "password": "g7tPQQwfa5fDdP8BcMDSbQ==.UCmnIJrqxa4rceoAKJUKZA=="
       },
     );
-    print(response.body);
+    print(respPost.body);
   }
 
   @override
