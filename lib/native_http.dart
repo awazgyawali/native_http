@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 const MethodChannel _channel = const MethodChannel('native_http');
 
 Future<NativeResponse> get(String url, {Map<String, dynamic> headers}) {
-  return _sendRequest(url: url, method: "POST", headers: headers);
+  return _sendRequest(url: url, method: "GET", headers: headers);
 }
 
 Future<NativeResponse> post(String url,
@@ -21,9 +21,9 @@ Future<NativeResponse> _sendRequest({
   Map<String, dynamic> body = const {},
 }) async {
   Map<String, dynamic> response =
-      await _channel.invokeMapMethod<String, dynamic>("native_http/post", {
+      await _channel.invokeMapMethod<String, dynamic>("native_http/request", {
     "url": url,
-    "method": 'METHOD',
+    "method": method,
     "headers": headers,
     "body": body,
   });
