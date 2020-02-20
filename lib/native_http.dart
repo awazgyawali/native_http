@@ -6,15 +6,15 @@ import 'package:flutter/services.dart';
 const MethodChannel _channel = const MethodChannel('native_http');
 
 Future<NativeResponse> get(String url, {Map<String, dynamic> headers}) {
-  return _sendRequest(url: url, method: "GET", headers: headers);
+  return request(url: url, method: "GET", headers: headers);
 }
 
 Future<NativeResponse> post(String url,
     {Map<String, dynamic> headers, Map<String, dynamic> body}) {
-  return _sendRequest(url: url, method: "POST", headers: headers, body: body);
+  return request(url: url, method: "POST", headers: headers, body: body);
 }
 
-Future<NativeResponse> _sendRequest({
+Future<NativeResponse> request({
   String url,
   String method,
   Map<String, dynamic> headers = const {},

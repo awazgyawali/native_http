@@ -3,7 +3,6 @@ package com.brainants.nativehttp.native_http
 import android.os.Handler
 import android.os.Looper
 import androidx.annotation.NonNull
-import androidx.annotation.UiThread
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -53,8 +52,6 @@ public class NativeHttpPlugin : FlutterPlugin, MethodCallHandler {
     val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
 
     fun sendRequest(url: String, method: String, headers: HashMap<String, Any>, body: HashMap<String, Any>, @NonNull result: Result) {
-        val bodyString = JSONObject(body).toString()
-
         val requestBody: RequestBody = JSONObject(body).toString().toRequestBody(JSON)
         var requestBuilder: Request.Builder = Request.Builder()
                 .url(url)
