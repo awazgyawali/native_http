@@ -1,14 +1,23 @@
 # native_http
 
-A new flutter plugin project.
+A package that calls network from native platform ie OkHttp on Android and URLSession iOS.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+import 'package:native_http/native_http.dart' as native_http;
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+// Platform messages are asynchronous, so we initialize in an async method.
+Future<void> initPlatformState() async {
+native_http.NativeResponse respGet = await native_http.get(
+"http://newweb.nepalstock.com.np:8500/api/nots/nepse-data/market-open");
+print(respGet.body);
+native_http.NativeResponse respPost = await native_http.post(
+"http://newweb.nepalstock.com.np:8500/api/authenticate/login",
+body: {
+"username":
+"g7tPQQwfa5fDdP8BcMDSbQ==.g7tPQQwfa5fDdP8BcMDSbQ==.UCmnIJrqxa4rceoAKJUKZA==",
+"password": "g7tPQQwfa5fDdP8BcMDSbQ==.UCmnIJrqxa4rceoAKJUKZA=="
+},
+);
+print(respPost.body);
+}
