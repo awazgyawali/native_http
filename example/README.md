@@ -1,16 +1,22 @@
-# native_http_example
+# native_http
 
-Demonstrates how to use the native_http plugin.
+A package that calls network from native platform ie OkHttp on Android and URLSession iOS.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+```
+  import 'package:native_http/native_http.dart' as native_http;
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+  Future<void> runCalls() async {
+    native_http.NativeResponse respGet =
+        await native_http.get("http://example.com/get");
+    print(respGet.body);
+    native_http.NativeResponse respPost = await native_http.post(
+      "http://example.com/get",
+      body: {"username": "username", "password": "password"},
+    );
+    print(respPost.body);
+  }
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
