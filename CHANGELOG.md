@@ -1,3 +1,7 @@
+## 1.0.0+3
+
+- Fixed bug on iOS
+
 ## 1.0.0+2
 
 - Added header for api calls added
