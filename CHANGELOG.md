@@ -1,3 +1,7 @@
+## 1.0.0+2
+
+- Added header for api calls added
+
 ## 1.0.0+1
 
 - Added example
