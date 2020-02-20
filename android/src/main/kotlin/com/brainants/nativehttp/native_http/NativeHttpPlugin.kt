@@ -1,5 +1,7 @@
 package com.brainants.nativehttp.native_http
 
+import android.os.Handler
+import android.os.Looper
 import androidx.annotation.NonNull
 import androidx.annotation.UiThread
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -11,6 +13,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import java.io.IOException
 
 
@@ -25,11 +28,9 @@ public class NativeHttpPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     companion object {
-        lateinit var registrar: Registrar
 
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            this.registrar = registrar
             val channel = MethodChannel(registrar.messenger(), "native_http")
             channel.setMethodCallHandler(NativeHttpPlugin())
         }
@@ -52,18 +53,25 @@ public class NativeHttpPlugin : FlutterPlugin, MethodCallHandler {
     val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
 
     fun sendRequest(url: String, method: String, headers: HashMap<String, Any>, body: HashMap<String, Any>, @NonNull result: Result) {
+        val bodyString = JSONObject(body).toString()
 
-        val requestBody: RequestBody = body.toString().toRequestBody(JSON)
-        val request: Request = Request.Builder()
+        val requestBody: RequestBody = JSONObject(body).toString().toRequestBody(JSON)
+        var requestBuilder: Request.Builder = Request.Builder()
                 .url(url)
-//            .headers(requestHeader)
-                .method(method, requestBody)
-                .build()
+        headers.entries.forEach {
+            requestBuilder = requestBuilder.addHeader(it.key, it.value as String)
+        }
+
+        if (method != "GET")
+            requestBuilder = requestBuilder.method(method, requestBody)
+
+        val request = requestBuilder.build()
+        val mHandler = Handler(Looper.getMainLooper())
         client.newCall(request).enqueue(
                 object : Callback {
 
                     override fun onFailure(call: Call, e: IOException) {
-                        registrar.activity().runOnUiThread {
+                        mHandler.post {
                             result.error(e.message, e.localizedMessage, null)
                         }
                     }
@@ -71,9 +79,8 @@ public class NativeHttpPlugin : FlutterPlugin, MethodCallHandler {
                     override fun onResponse(call: Call, r: Response) {
                         val response = HashMap<String, Any>()
                         response["code"] = r.code
-                        response["body"] = r.body.toString()
-
-                        registrar.activity().runOnUiThread {
+                        response["body"] = r.body!!.string()
+                        mHandler.post {
                             result.success(response)
                         }
                     }
