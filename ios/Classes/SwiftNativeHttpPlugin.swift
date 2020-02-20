@@ -42,7 +42,7 @@ public class SwiftNativeHttpPlugin: NSObject, FlutterPlugin {
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         
         headers.forEach {(key: String, value: String) in
-            request.setValue(key, forHTTPHeaderField: value)
+            request.setValue(value, forHTTPHeaderField: key)
         }
         
         let task = session.dataTask(with: request) {( data, response, error) in
@@ -65,7 +65,7 @@ public class SwiftNativeHttpPlugin: NSObject, FlutterPlugin {
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         
         headers.forEach {(key: String, value: String) in
-            request.setValue(key, forHTTPHeaderField: value)
+            request.setValue(value, forHTTPHeaderField: key)
         }
         
         let encoder = JSONEncoder()
