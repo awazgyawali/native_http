@@ -1,6 +1,6 @@
 name: native_http
-description: A new flutter plugin project.
-version: 1.0.0
+description: A package that calls network from native platform ie OkHttp on Android and URLSession iOS.
+version: 1.0.0+1
 author: Aawaz Gyawali <awazgyawali@gmail.com>
 homepage: https://github.com/awazgyawali/native_http
 
