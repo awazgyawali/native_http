@@ -1,6 +1,6 @@
 name: native_http
 description: A package that calls network from native platform ie OkHttp on Android and URLSession iOS.
-version: 1.0.0+4
+version: 1.0.0+5
 author: Aawaz Gyawali <awazgyawali@gmail.com>
 homepage: https://github.com/awazgyawali/native_http
 

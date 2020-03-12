@@ -1,3 +1,7 @@
+## 1.0.0+5
+
+- Empty header issue handled
+
 ## 1.0.0+4
 
 - Handled no network call crash issue
