@@ -46,6 +46,10 @@ public class SwiftNativeHttpPlugin: NSObject, FlutterPlugin {
         }
         
         let task = session.dataTask(with: request) {( data, response, error) in
+            if(error != nil){
+               result(FlutterError (code:"400", message:error?.localizedDescription, details:nil))
+               return
+            }
             let responseString = String(NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!)
             let httpResponse = response as? HTTPURLResponse
             let responseCode = httpResponse?.statusCode

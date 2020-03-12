@@ -1,3 +1,7 @@
+## 1.0.0+4
+
+- Handled no network call crash issue
+
 ## 1.0.0+3
 
 - Fixed bug on iOS
