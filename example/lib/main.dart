@@ -18,11 +18,14 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> runCalls() async {
-    native_http.NativeResponse respGet =
-        await native_http.get("http://example.com/get");
-    print(respGet.body);
+    native_http.NativeResponse respGet = await native_http
+        .get("https://5eb4371f2b81f70016308301.mockapi.io/api/users");
     native_http.NativeResponse respPost = await native_http.post(
-      "http://example.com/get",
+      "http://newweb.nepalstock.com.np/api/authenticate/login",
+      headers: {
+        "Origin": "http://newweb.nepalstock.com.np",
+        "Host": "http://newweb.nepalstock.com.np",
+      },
       body: {"username": "username", "password": "password"},
     );
     print(respPost.body);
@@ -36,7 +39,10 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Ran an http call'),
+          child: RaisedButton(
+            child: Text('Run an http call'),
+            onPressed: runCalls,
+          ),
         ),
       ),
     );
