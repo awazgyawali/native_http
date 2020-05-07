@@ -27,13 +27,6 @@ Future<NativeResponse> request(
     String method,
     Map<String, dynamic> headers,
     Map<String, dynamic> body}) async {
-  Map<String, dynamic> response =
-      await _channel.invokeMapMethod<String, dynamic>("native_http/request", {
-    "url": url,
-    "method": method,
-    "headers": headers,
-    "body": body,
-  });
   if (kIsWeb) {
     var response;
     switch (method) {
@@ -86,6 +79,13 @@ Future<NativeResponse> request(
       "body": response.body,
     });
   }
+  Map<String, dynamic> response =
+      await _channel.invokeMapMethod<String, dynamic>("native_http/request", {
+    "url": url,
+    "method": method,
+    "headers": headers,
+    "body": body,
+  });
   return NativeResponse._fromMap(response);
 }
 
