@@ -1,4 +1,4 @@
-## 1.0.1
+## 1.0.1+1
 
 - Added json getter to get parsed json data
 

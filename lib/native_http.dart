@@ -92,7 +92,7 @@ Future<NativeResponse> request(
 class NativeResponse {
   int code;
   String body;
-  dynamic get json => json.decode(body);
+  dynamic get jsonData => json.decode(body);
   static NativeResponse _fromMap(Map<String, dynamic> response) {
     return NativeResponse()
       ..code = response["code"]
