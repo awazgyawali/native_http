@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Added json getter to get parsed json data
+
 ## 1.0.0+5
 
 - Empty header issue handled
