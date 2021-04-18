@@ -1,11 +1,11 @@
 name: native_http
 description: A package that calls network from native platform ie OkHttp on Android and URLSession iOS.
-version: 1.0.0+5
-author: Aawaz Gyawali <awazgyawali@gmail.com>
+version: 1.0.1+2
 homepage: https://github.com/awazgyawali/native_http
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
+  flutter: ">=1.20.0"
 
 dependencies:
   flutter:
@@ -16,5 +16,9 @@ dev_dependencies:
     sdk: flutter
 flutter:
   plugin:
-    androidPackage: com.brainants.nativehttp.native_http
-    pluginClass: NativeHttpPlugin
+      platforms:
+        android:
+          package: com.brainants.nativehttp.native_http
+          pluginClass: NativeHttpPlugin
+        ios:
+          pluginClass: NativeHttpPlugin

@@ -1,3 +1,7 @@
+## 1.0.1+2
+
+- Uri Fixes
+
 ## 1.0.0+5
 
 - Empty header issue handled
