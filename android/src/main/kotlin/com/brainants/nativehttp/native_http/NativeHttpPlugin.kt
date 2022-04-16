@@ -9,10 +9,13 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
+
 import java.io.IOException
 
 
@@ -39,8 +42,8 @@ public class NativeHttpPlugin : FlutterPlugin, MethodCallHandler {
         if (call.method == "native_http/request") {
             val url = call.argument<String>("url")!!
             val method = call.argument<String>("method")!!
-            var headers = call.argument<HashMap<String, Any>>("headers")
-            var body = call.argument<HashMap<String, Any>>("body")
+            var headers = call.argument<HashMap<String, String>>("headers")
+            var body = call.argument<HashMap<String, String>>("body")
             if (headers == null) headers = HashMap()
             if (body == null) body = HashMap()
             sendRequest(url, method, headers, body, result)
@@ -51,8 +54,8 @@ public class NativeHttpPlugin : FlutterPlugin, MethodCallHandler {
 
     val JSON: MediaType = "application/json; charset=utf-8".toMediaType()
 
-    fun sendRequest(url: String, method: String, headers: HashMap<String, Any>, body: HashMap<String, Any>, @NonNull result: Result) {
-        val requestBody: RequestBody = JSONObject(body).toString().toRequestBody(JSON)
+    fun sendRequest(url: String, method: String, headers: HashMap<String, String>, body: HashMap<String, String>, @NonNull result: Result) {
+        val requestBody: RequestBody = Json.encodeToString(body).toRequestBody(JSON)
         var requestBuilder: Request.Builder = Request.Builder()
                 .url(url)
         headers.entries.forEach {
