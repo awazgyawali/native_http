@@ -19,7 +19,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> runCalls() async {
     native_http.NativeResponse respGet =
-        await native_http.get("http://example.com/get");
+        await native_http.get("https://baidu.com/get");
     print(respGet.body);
     native_http.NativeResponse respPost = await native_http.post(
       "http://example.com/get",
